@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:weather_live/models/weather_model.dart';
 import 'package:weather_live/screens/loading_screen.dart';
 import 'package:weather_live/screens/search_city_screen.dart';
@@ -156,9 +158,6 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ],
               ),
-              /*SizedBox(
-                height: 50,
-              ),*/
               Column(
                 children: [
                   Text(
@@ -180,7 +179,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   Text(
                     weatherDetails.getWeatherIcon(condition),
@@ -192,7 +191,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -203,7 +202,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           color: Colors.black,
                           fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 25,
                         ),
                       ),
                       SizedBox(
@@ -215,13 +214,13 @@ class _LocationScreenState extends State<LocationScreen> {
                           color: Colors.black,
                           fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 25,
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Text(
                     'Humidity: ' + humidity.toString() + ' %',
@@ -279,13 +278,121 @@ class _LocationScreenState extends State<LocationScreen> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Text(
+                  'Developed by Yamin Arafat in 2021, KUET.© All rights reserved.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Ubuntu',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(
+                    iconSize: 20,
+                    onPressed: () {
+                      // setState(() {
+                      Alert(
+                        context: context,
+                        content: Column(
+                          children: [
+                            Text(
+                              'Yamin Arafat',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Ubuntu',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              'BSc in Computer Science & Engineering',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              'Khulna University of Engineering & Technology',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 10,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            ContactInfo(
+                                icon: Icons.email_outlined,
+                                text: 'yaminarafat032@gmail.com'),
+                            ContactInfo(
+                              icon: Icons.phone,
+                              text: '+880 1771-955897',
+                            ),
+                          ],
+                        ),
+                        closeIcon: Icon(
+                          Icons.close,
+                        ),
+                        image: Image(
+                          image: AssetImage(
+                            'images/yaminarafat.jpg',
+                          ),
+                          width: 150,
+                          height: 150,
+                        ),
+                        style: AlertStyle(
+                          backgroundColor: Colors.blueAccent,
+                        ),
+                      ).show();
+                      // });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.infoCircle,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ]),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ContactInfo extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  ContactInfo({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          icon,
+          size: 15,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Ubuntu',
+            fontSize: 15,
+          ),
+        ),
+      ],
     );
   }
 }
