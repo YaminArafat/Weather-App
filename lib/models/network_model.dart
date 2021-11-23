@@ -4,7 +4,7 @@ class NetworkHelper {
   final String url;
   NetworkHelper(this.url);
 
-  Future getLocationData() async {
+  Future<dynamic> getLocationData() async {
     http.Response response = await http.get(Uri.parse(url));
     return response.body;
   }

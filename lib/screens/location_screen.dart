@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -9,8 +11,8 @@ import 'package:weather_live/screens/loading_screen.dart';
 import 'package:weather_live/screens/search_city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
-  final String data;
-  LocationScreen({required this.data});
+  final dynamic data;
+  LocationScreen({Key? key, required this.data}) : super(key: key);
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -37,7 +39,7 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.data);
   }
 
-  void updateUI(dynamic data) {
+  void updateUI(var data) {
     try {
       var t = jsonDecode(data)['main']['temp'];
       temp = t.toInt();
@@ -99,7 +101,9 @@ class _LocationScreenState extends State<LocationScreen> {
                     onPressed: () async {
                       var cityData = await Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return CityScreen();
+                        return CityScreen(
+                          prevData: widget.data,
+                        );
                       }));
                       setState(() {
                         updateUI(cityData);
@@ -280,9 +284,9 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Text(
-                  'Developed by Yamin Arafat in 2021, KUET.© All rights reserved.',
+                  'Developed by Yamin Arafat in 2021, KUET. © All rights reserved.',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black38,
                     fontFamily: 'Ubuntu',
                     fontWeight: FontWeight.bold,
                     fontSize: 10,
@@ -307,31 +311,43 @@ class _LocationScreenState extends State<LocationScreen> {
                                 fontSize: 20,
                               ),
                             ),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Text(
                               'BSc in Computer Science & Engineering',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontFamily: 'Ubuntu',
                                 fontSize: 15,
-                              ),
-                            ),
-                            Text(
-                              'Khulna University of Engineering & Technology',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Ubuntu',
-                                fontSize: 10,
                               ),
                             ),
                             SizedBox(
                               height: 5,
                             ),
+                            Text(
+                              'Khulna University of Engineering & Technology',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 10,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             ContactInfo(
-                                icon: Icons.email_outlined,
-                                text: 'yaminarafat032@gmail.com'),
+                              icon: Icons.email_outlined,
+                              text: 'yaminarafat032@gmail.com',
+                              color: Colors.redAccent,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
                             ContactInfo(
                               icon: Icons.phone,
                               text: '+880 1771-955897',
+                              color: Colors.green,
                             ),
                           ],
                         ),
@@ -347,6 +363,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         ),
                         style: AlertStyle(
                           backgroundColor: Colors.blueAccent,
+                          isButtonVisible: false,
                         ),
                       ).show();
                       // });
@@ -370,7 +387,10 @@ class _LocationScreenState extends State<LocationScreen> {
 class ContactInfo extends StatelessWidget {
   final IconData icon;
   final String text;
-  ContactInfo({required this.icon, required this.text});
+  final Color color;
+  ContactInfo(
+      {Key? key, required this.icon, required this.text, required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -380,6 +400,7 @@ class ContactInfo extends StatelessWidget {
         Icon(
           icon,
           size: 15,
+          color: color,
         ),
         SizedBox(
           width: 5,

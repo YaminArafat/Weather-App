@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:weather_live/models/weather_model.dart';
 
@@ -9,7 +11,8 @@ const borderStyle = OutlineInputBorder(
 );
 
 class CityScreen extends StatefulWidget {
-  const CityScreen({Key? key}) : super(key: key);
+  final dynamic prevData;
+  CityScreen({Key? key, required this.prevData}) : super(key: key);
 
   @override
   _CityScreenState createState() => _CityScreenState();
@@ -26,9 +29,12 @@ class _CityScreenState extends State<CityScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        /*leading: Icon(
-          Icons.arrow_back_ios,
-        ),*/
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context, widget.prevData);
+          },
+        ),
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontFamily: 'Ubuntu',
@@ -51,7 +57,7 @@ class _CityScreenState extends State<CityScreen> {
         color: Colors.blueAccent,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: Column(
               children: [
                 SizedBox(
@@ -112,6 +118,7 @@ class _CityScreenState extends State<CityScreen> {
                       setState(() {
                         cityName = searchedLocation.text.toLowerCase();
                       });
+                      // ignore: prefer_typing_uninitialized_variables
                       var searchedLocationData;
                       try {
                         searchedLocationData =

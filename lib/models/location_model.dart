@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  Future getLocation() async {
+  Future<dynamic> getLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);

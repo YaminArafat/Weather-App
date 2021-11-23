@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_live/models/weather_model.dart';
@@ -6,8 +8,6 @@ import 'package:weather_live/screens/location_screen.dart';
 const apiKey = '331533c0cc2197e929ea79cdb2a70e33';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({Key? key}) : super(key: key);
-
   @override
   _LoadingState createState() => _LoadingState();
 }
